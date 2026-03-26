@@ -11,6 +11,7 @@ function StorySection({
   isTransparentImage, 
   reverse,
   hasSlideGlow,
+  hasAuraGlow,
   isGif
 }: { 
   content: { title: string; subtitle: string }; 
