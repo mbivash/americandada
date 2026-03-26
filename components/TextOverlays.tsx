@@ -19,6 +19,7 @@ function StorySection({
   isTransparentImage?: boolean;
   reverse?: boolean;
   hasSlideGlow?: boolean;
+  hasAuraGlow?: boolean;
   isGif?: boolean;
 }) {
   const ref = useRef(null);
@@ -116,8 +117,28 @@ function StorySection({
               </div>
             )}
 
-            {/* 3. HD Cinematic Loop / Standard Image layout */}
-            {!isTransparentImage && !hasSlideGlow && (
+            {/* 3. Aura Glow - Creative Professional Border */}
+            {hasAuraGlow && (
+              <div className="relative p-[2px] rounded-[2rem] w-full max-w-lg mx-auto group">
+                 {/* Multi-layered pulsing professional aura */}
+                 <div className="absolute inset-0 bg-gradient-to-tr from-orange-600 via-amber-400 to-orange-700 rounded-[2rem] animate-[pulse_3s_infinite_alternate] blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+                 
+                 {/* Sleek Inner Image */}
+                 <div className="relative rounded-[calc(2rem-2px)] overflow-hidden w-full aspect-[4/5] bg-[#050505] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border border-white/20">
+                   <motion.img 
+                     src={imageSrc} 
+                     alt="Creative detail" 
+                     className="w-full h-full object-cover opacity-95 mix-blend-luminosity hover:mix-blend-normal"
+                     whileHover={{ scale: 1.05 }}
+                     transition={{ duration: 0.8 }}
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+                 </div>
+              </div>
+            )}
+
+            {/* 4. HD Cinematic Loop / Standard Image layout */}
+            {!isTransparentImage && !hasSlideGlow && !hasAuraGlow && (
               <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] group w-full max-w-lg border border-white/20">
                 <motion.img 
                   src={imageSrc} 
@@ -149,12 +170,13 @@ export default function TextOverlays({ dish }: { dish: BiryaniDish }) {
         hasSlideGlow={true}
       />
       
-      {/* Section 2: Transparent Plating layout reversed */}
+      {/* Section 2: Aura Glow Professional Formatting reversed */}
       <StorySection 
         content={dish.section2} 
         color={dish.themeColor} 
         imageSrc="/images/image2.png" 
-        isTransparentImage={true}
+        isTransparentImage={false}
+        hasAuraGlow={true}
         reverse={true}
       />
       
