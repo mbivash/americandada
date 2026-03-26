@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import './globals.css';
+import CustomCursor from '@/components/CustomCursor';
+import Preloader from '@/components/Preloader';
+import FloatingSpices from '@/components/FloatingSpices';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -21,6 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.variable} font-sans antialiased`}>
+        <Preloader />
+        <CustomCursor />
+        <FloatingSpices />
         {children}
       </body>
     </html>
