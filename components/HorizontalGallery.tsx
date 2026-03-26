@@ -29,9 +29,10 @@ const cards = [
 export default function HorizontalGallery() {
   const targetRef = useRef<HTMLDivElement | null>(null);
   
-  // Track vertical scroll over 400vh to smoothly drive the horizontal transform
+  // Track vertical scroll specifically when locked to the screen
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   // Map 0 -> 1 scroll to a massive X translation mapping to 4 cards + Intro
