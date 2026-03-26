@@ -9,7 +9,7 @@ import BiryaniScroll from "@/components/BiryaniScroll";
 import TextOverlays from "@/components/TextOverlays";
 import Locations from "@/components/Locations";
 import Footer from "@/components/Footer";
-import HorizontalGallery from "@/components/HorizontalGallery";
+import BentoIngredients from "@/components/BentoIngredients";
 
 export default function Home() {
   const [dishIndex, setDishIndex] = useState(0);
@@ -148,7 +148,7 @@ export default function Home() {
         </motion.div>
       </AnimatePresence>
 
-      <HorizontalGallery />
+      <BentoIngredients />
 
       <Locations />
 
