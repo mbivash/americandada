@@ -16,7 +16,7 @@ export default function Home() {
   const currentDish = dishes[dishIndex];
 
   return (
-    <main className="bg-black min-h-screen text-white overflow-hidden selection:bg-orange-500 selection:text-white">
+    <main className="bg-black min-h-screen text-white overflow-clip selection:bg-orange-500 selection:text-white">
       <Navbar />
 
       {/* Hero Section */}
