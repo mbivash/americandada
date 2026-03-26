@@ -91,14 +91,14 @@ function StorySection({
                 <img 
                   src={imageSrc} 
                   alt="Plated Biryani" 
-                  className="w-full max-w-lg object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.8)]"
+                  className="w-full max-w-md object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.8)]"
                 />
               </motion.div>
             )}
 
             {/* 2. Slide Glow Effect Layout */}
             {hasSlideGlow && (
-              <div className="relative p-1 rounded-[2rem] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.9)] group w-full max-w-lg mx-auto bg-black">
+              <div className="relative p-[3px] rounded-[2rem] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.9)] group w-full max-w-md mx-auto bg-black">
                 {/* The spinning neon slide glows mapped uniquely using conic gradients */}
                 <div className="absolute -inset-[150%] animate-[spin_5s_linear_infinite] bg-[conic-gradient(transparent_0deg,transparent_270deg,#f97316_360deg)] opacity-100" />
                 <div className="absolute -inset-[150%] animate-[spin_5s_linear_infinite_2.5s] bg-[conic-gradient(transparent_0deg,transparent_270deg,#ffffff_360deg)] opacity-100" />
@@ -120,7 +120,7 @@ function StorySection({
 
             {/* 3. Aura Glow - Creative Professional Border */}
             {hasAuraGlow && (
-              <div className="relative p-[2px] rounded-[2rem] w-full max-w-lg mx-auto group">
+              <div className="relative p-[2px] rounded-[2rem] w-full max-w-md mx-auto group">
                  {/* Multi-layered pulsing professional aura */}
                  <div className="absolute inset-0 bg-gradient-to-tr from-orange-600 via-amber-400 to-orange-700 rounded-[2rem] animate-[pulse_3s_infinite_alternate] blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
                  
@@ -140,7 +140,7 @@ function StorySection({
 
             {/* 4. HD Cinematic Loop / Standard Image layout */}
             {!isTransparentImage && !hasSlideGlow && !hasAuraGlow && (
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] group w-full max-w-lg border border-white/20">
+              <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)] group w-full max-w-md border border-white/20">
                 <motion.img 
                   src={imageSrc} 
                   alt="Visual Detail" 
