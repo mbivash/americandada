@@ -171,13 +171,13 @@ export default function TextOverlays({ dish }: { dish: BiryaniDish }) {
         hasSlideGlow={true}
       />
       
-      {/* Section 2: Aura Glow Professional Formatting reversed */}
+      {/* Section 2: Slide Glow Professional Formatting reversed */}
       <StorySection 
         content={dish.section2} 
         color={dish.themeColor} 
         imageSrc="/images/image2.png" 
         isTransparentImage={false}
-        hasAuraGlow={true}
+        hasSlideGlow={true}
         reverse={true}
       />
       
