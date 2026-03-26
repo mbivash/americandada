@@ -8,8 +8,8 @@ const ingredients = [
     title: "Saffron Infusion",
     subtitle: "Pure Iranian Saffron",
     description: "Hand-picked golden threads steeped to perfection, giving our biryani its signature royal aroma and golden hue.",
-    image: "https://images.unsplash.com/photo-1615486171447-380d60c2625c?auto=format&fit=crop&w=1200&q=80",
-    color: "from-amber-500/80 to-transparent"
+    image: "https://images.unsplash.com/photo-1596484552857-e9a6e13b8656?auto=format&fit=crop&w=1200&q=80",
+    color: "from-amber-600/60 to-transparent"
   },
   {
     id: 2,
@@ -17,15 +17,15 @@ const ingredients = [
     subtitle: "Falling off the bone",
     description: "Marinated overnight in secret spices and slow-cooked in sealed handis to absorb every ounce of flavor.",
     image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=80",
-    color: "from-red-600/80 to-transparent"
+    color: "from-red-600/60 to-transparent"
   },
   {
     id: 3,
     title: "Aged Basmati",
     subtitle: "Extra long distinct grains",
     description: "Premium aged grains that remain light, fluffy, and perfectly separated, soaking up the rich broth.",
-    image: "https://images.unsplash.com/photo-1628151015968-3a4429e9ef04?auto=format&fit=crop&w=1200&q=80",
-    color: "from-orange-400/80 to-transparent"
+    image: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=1200&q=80",
+    color: "from-orange-500/60 to-transparent"
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const ingredients = [
     subtitle: "A family secret",
     description: "Our proprietary blend of 18 whole spices, freshly roasted and ground daily to create an unforgettable taste.",
     image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=80",
-    color: "from-orange-700/80 to-transparent"
+    color: "from-orange-700/60 to-transparent"
   }
 ];
 
@@ -58,45 +58,47 @@ export default function BentoIngredients() {
           {ingredients.map((item, index) => (
             <motion.div 
               key={item.id}
-              className={`group relative overflow-hidden rounded-[2rem] bg-[#050505] border border-white/10 aspect-square md:aspect-[4/3] flex flex-col justify-end p-8 md:p-12 md:cursor-none`}
-              initial={{ opacity: 0, y: 50 }}
+              className={`group relative overflow-hidden rounded-[2rem] bg-[#020202] border border-white/10 aspect-square md:aspect-[4/3] flex flex-col justify-end p-8 md:p-12 md:cursor-none`}
+              initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "100px" }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "50px" }}
+              transition={{ duration: 1.5, delay: index * 0.2, ease: "easeOut" }}
             >
               
-              {/* Background High-Res Image (Visible on mobile by default, hidden by default on desktop) */}
+              {/* Background High-Res Image (Fully bright on mobile, hidden on desktop until hover) */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="w-full h-full object-cover opacity-40 md:opacity-0 md:group-hover:opacity-40 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-1000 ease-out scale-100 md:scale-110 md:group-hover:scale-100"
+                  className="w-full h-full object-cover opacity-80 md:opacity-0 md:group-hover:opacity-80 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-[1.5s] ease-out scale-100 md:scale-110 md:group-hover:scale-100"
                 />
               </div>
 
-              {/* Dramatic Lighting Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-t ${item.color} opacity-20 md:opacity-0 md:group-hover:opacity-20 transition-opacity duration-1000 ease-out`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-95 md:opacity-80 md:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              {/* Dramatic Lighting Overlay (Much lighter so mobile images are visible!) */}
+              <div className={`absolute inset-0 bg-gradient-to-t ${item.color} opacity-60 md:opacity-0 md:group-hover:opacity-60 transition-opacity duration-[1.5s] ease-out`} />
+              
+              {/* Dark bottom gradient exclusively for text legibility, transparent top so image shows entirely! */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-100 transition-opacity duration-1000 pointer-events-none" />
 
               {/* Text Content */}
-              <div className="relative z-10 transition-transform duration-700 ease-out translate-y-0 md:translate-y-8 md:group-hover:translate-y-0">
-                <span className="text-orange-500 font-bold text-sm md:text-base uppercase tracking-[0.3em] block mb-3 opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity duration-500">
+              <div className="relative z-10 transition-transform duration-1000 ease-out translate-y-0 md:translate-y-8 md:group-hover:translate-y-0">
+                <span className="text-orange-500 font-bold text-sm md:text-base uppercase tracking-[0.3em] block mb-3 opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity duration-1000">
                   {item.subtitle}
                 </span>
-                <h3 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-md">
+                <h3 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
                   {item.title}
                 </h3>
                 
-                {/* Description (Always visible on mobile, slides up elegantly on desktop) */}
+                {/* Description (Always visible on mobile) */}
                 <div className="overflow-hidden">
-                  <p className="text-white/80 text-lg md:text-xl font-light leading-relaxed max-w-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-all duration-500 ease-out delay-100">
+                  <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-all duration-1000 ease-out delay-100">
                     {item.description}
                   </p>
                 </div>
               </div>
 
               {/* Hover Frame Glow */}
-              <div className="absolute inset-0 border-[2px] border-orange-500/0 md:group-hover:border-orange-500/30 rounded-[2rem] transition-colors duration-700 pointer-events-none" />
+              <div className="absolute inset-0 border-[2px] border-orange-500/0 md:group-hover:border-orange-500/40 rounded-[2rem] transition-colors duration-1000 pointer-events-none" />
             </motion.div>
           ))}
         </div>
