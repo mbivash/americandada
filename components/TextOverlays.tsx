@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { BiryaniDish } from "@/data/biryani";
 
 function StorySection({ 
@@ -24,37 +24,75 @@ function StorySection({
   isGif?: boolean;
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { margin: "-20% 0px -20% 0px", once: false });
+  
+  // Use scroll progress for dynamic motion graphic tied to user's scrolling
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Calculate transforms for slow, continuous scroll fade
+  // 0 -> 0.3: Fade in as section enters
+  // 0.3 -> 0.6: Fully visible in center
+  // 0.6 -> 1.0: Slow, continuous fade out as user scrolls to next section
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0, 1, 1, 0]);
+  
+  // Background motion
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0, 0.15, 0.15, 0]);
+  const bgScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.8, 1, 1, 1.2]);
+
+  // Text motion
+  const textX = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [reverse ? 80 : -80, 0, 0, reverse ? -80 : 80]);
+  const textBlur = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], ["blur(15px)", "blur(0px)", "blur(0px)", "blur(15px)"]);
+
+  // Visual motion
+  const visualScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [
+    isTransparentImage ? 0.5 : 0.8, 
+    1, 
+    1, 
+    isTransparentImage ? 0.5 : 0.8
+  ]);
+  
+  const visualRotate = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [
+    isTransparentImage ? -15 : 0, 
+    0, 
+    0, 
+    isTransparentImage ? 15 : 0
+  ]);
+  
+  const visualY = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [
+    isTransparentImage ? 150 : 0, 
+    0, 
+    0, 
+    isTransparentImage ? -150 : 0
+  ]);
+  
+  const visualX = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [
+    isTransparentImage ? 0 : (reverse ? -80 : 80), 
+    0, 
+    0, 
+    isTransparentImage ? 0 : (reverse ? 80 : -80)
+  ]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 md:px-24 py-20 relative overflow-hidden overflow-y-visible">
+    <div ref={ref} className="min-h-screen flex items-center justify-center px-6 md:px-24 py-20 relative overflow-hidden overflow-y-visible">
       
       {/* Dynamic Background Element */}
-      {isInView && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute inset-0 bg-radial-gradient from-orange-500/40 to-transparent pointer-events-none"
-        />
-      )}
+      <motion.div
+        style={{ opacity: bgOpacity, scale: bgScale }}
+        className="absolute inset-0 bg-radial-gradient from-orange-500/40 to-transparent pointer-events-none"
+      />
 
       {/* Main Grid Wrapper layouting Text and Visual separate */}
       <div className={`w-full max-w-7xl flex flex-col gap-12 items-center ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
         
         {/* TEXT AREA - Decoupled and distinct */}
         <motion.div
-          ref={ref}
-          initial={{ opacity: 0, x: reverse ? 50 : -50, filter: "blur(10px)" }}
-          animate={isInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: reverse ? 50 : -50, filter: "blur(10px)" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ opacity, x: textX, filter: textBlur }}
           className="flex-1 text-left relative z-10 bg-black/40 p-8 md:p-12 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl"
         >
           <div className="w-16 h-1 mb-8 rounded-full" style={{ backgroundColor: color }} />
-          <h2 
-            className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase leading-[0.9] drop-shadow-2xl"
-          >
+          <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase leading-[0.9] drop-shadow-2xl">
             {content.title}
           </h2>
           {content.subtitle && (
@@ -67,17 +105,7 @@ function StorySection({
         {/* VISUAL AREA - Clearly separated from Text */}
         {imageSrc && (
           <motion.div
-            initial={
-              isTransparentImage 
-                ? { opacity: 0, scale: 0.5, rotate: -15, y: 100 }
-                : { opacity: 0, scale: 0.8, x: reverse ? -50 : 50 }
-            }
-            animate={
-              isInView 
-                ? { opacity: 1, scale: 1, rotate: 0, y: 0, x: 0 } 
-                : { opacity: 0, scale: 0.8, rotate: 0 }
-            }
-            transition={{ duration: 1.2, delay: 0.2, type: "spring", bounce: 0.2 }}
+            style={{ opacity, scale: visualScale, rotate: visualRotate, x: visualX, y: visualY }}
             className="flex-1 relative z-10 flex justify-center items-center"
           >
             {/* 1. Plated Transparent Layout */}
