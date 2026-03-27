@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { dishes } from "@/data/biryani";
 
 import Navbar from "@/components/Navbar";
@@ -15,14 +15,22 @@ export default function Home() {
   const [dishIndex, setDishIndex] = useState(0);
   const currentDish = dishes[dishIndex];
 
+  const { scrollYProgress } = useScroll();
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
   return (
-    <main className="bg-black min-h-screen text-white overflow-clip selection:bg-orange-500 selection:text-white">
+    <main className="bg-black min-h-screen text-white overflow-x-hidden selection:bg-orange-500 selection:text-white">
       <Navbar />
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative h-[100svh] flex items-center justify-center overflow-hidden">
         {/* Main Background Image - Image 1 */}
-        <div className="absolute inset-0 bg-[url('/images/image1.png')] bg-cover bg-center bg-no-repeat opacity-90 mix-blend-luminosity scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]" />
+        <motion.div 
+          className="absolute inset-0 w-full h-full z-0 will-change-[opacity,transform]"
+          style={{ opacity: heroOpacity }}
+        >
+          <div className="absolute inset-0 bg-[url('/images/image1.png')] bg-cover bg-center bg-no-repeat opacity-90 mix-blend-luminosity scale-105 animate-[pulse_10s_ease-in-out_infinite_alternate]" />
+        </motion.div>
         
         {/* Soft Vignette Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/80" />
@@ -133,7 +141,7 @@ export default function Home() {
 
             {/* Experience Section */}
             <div className="py-40 px-6 md:px-12 bg-black relative z-10 border-t border-white/5">
-              <div className="absolute inset-0 bg-[url('/images/image3.webp')] bg-cover bg-fixed opacity-10 grayscale mix-blend-overlay" />
+              <div className="absolute inset-0 bg-[url('/images/image3.webp')] bg-cover md:bg-fixed bg-center opacity-10 grayscale mix-blend-overlay" />
               <div className="max-w-5xl mx-auto text-center space-y-10 relative z-10">
                 <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
                   {currentDish.experienceSection.title}

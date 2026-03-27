@@ -42,8 +42,8 @@ function StorySection({
   const bgScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.8, 1, 1, 1.2]);
 
   // Text motion
-  const textX = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [reverse ? 80 : -80, 0, 0, reverse ? -80 : 80]);
-  const textBlur = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], ["blur(15px)", "blur(0px)", "blur(0px)", "blur(15px)"]);
+  const textX = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [reverse ? 60 : -60, 0, 0, reverse ? -60 : 60]);
+  const textScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.9, 1, 1, 0.9]);
 
   // Visual motion
   const visualScale = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [
@@ -88,8 +88,8 @@ function StorySection({
         
         {/* TEXT AREA - Decoupled and distinct */}
         <motion.div
-          style={{ opacity, x: textX, filter: textBlur }}
-          className="flex-1 text-left relative z-10 bg-black/40 p-8 md:p-12 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl"
+          style={{ opacity, x: textX, scale: textScale }}
+          className="flex-1 text-left relative z-10 bg-black/40 p-8 md:p-12 rounded-3xl backdrop-blur-xl border border-white/10 shadow-2xl will-change-[opacity,transform]"
         >
           <div className="w-16 h-1 mb-8 rounded-full" style={{ backgroundColor: color }} />
           <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter uppercase leading-[0.9] drop-shadow-2xl">
@@ -106,7 +106,7 @@ function StorySection({
         {imageSrc && (
           <motion.div
             style={{ opacity, scale: visualScale, rotate: visualRotate, x: visualX, y: visualY }}
-            className="flex-1 relative z-10 flex justify-center items-center"
+            className="flex-1 relative z-10 flex justify-center items-center will-change-[opacity,transform]"
           >
             {/* 1. Plated Transparent Layout */}
             {isTransparentImage && !hasSlideGlow && (
@@ -119,7 +119,9 @@ function StorySection({
                 <img 
                   src={imageSrc} 
                   alt="Plated Biryani" 
-                  className="w-full max-w-md object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.8)]"
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-full max-w-md object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,0.8)] will-change-transform"
                 />
               </motion.div>
             )}
@@ -136,9 +138,10 @@ function StorySection({
                   <motion.img 
                     src={imageSrc} 
                     alt="Signature" 
-                    className="w-full h-full object-cover opacity-90"
+                    loading="eager"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover opacity-90 transition-all duration-700 will-change-transform"
                     whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6 }}
                   />
                   {/* Subtle inner shadow ensuring border pops */}
                   <div className="absolute inset-0 border-[4px] border-[#0a0a0a]/50 rounded-[30px] pointer-events-none" />
@@ -157,9 +160,10 @@ function StorySection({
                    <motion.img 
                      src={imageSrc} 
                      alt="Creative detail" 
-                     className="w-full h-full object-cover opacity-95 mix-blend-luminosity hover:mix-blend-normal"
+                     loading="eager"
+                     fetchPriority="high"
+                     className="w-full h-full object-cover opacity-95 md:mix-blend-luminosity md:hover:mix-blend-normal transition-all duration-700 will-change-transform"
                      whileHover={{ scale: 1.05 }}
-                     transition={{ duration: 0.8 }}
                    />
                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
                  </div>
@@ -172,9 +176,10 @@ function StorySection({
                 <motion.img 
                   src={imageSrc} 
                   alt="Visual Detail" 
-                  className={`w-full object-cover ${isGif ? 'aspect-square md:aspect-video animate-[pulse_8s_ease-in-out_infinite_alternate] scale-110' : 'aspect-[4/5]'}`}
+                  loading="eager"
+                  fetchPriority="high"
+                  className={`w-full object-cover transition-all duration-700 will-change-transform ${isGif ? 'aspect-square md:aspect-video animate-[pulse_8s_ease-in-out_infinite_alternate] scale-110' : 'aspect-[4/5]'}`}
                   whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.8 }}
                 />
               </div>
             )}

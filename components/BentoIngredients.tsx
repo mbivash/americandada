@@ -8,7 +8,7 @@ const ingredients = [
     title: "Saffron Infusion",
     subtitle: "Pure Iranian Saffron",
     description: "Hand-picked golden threads steeped to perfection, giving our biryani its signature royal aroma and golden hue.",
-    image: "https://images.unsplash.com/photo-1596484552857-e9a6e13b8656?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=1200&q=80",
     color: "from-amber-600/60 to-transparent"
   },
   {
