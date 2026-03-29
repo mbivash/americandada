@@ -44,8 +44,8 @@ export default function Navbar() {
       `}
     >
       <a href="#home" onClick={(e) => scrollToSection(e, "#home")} className="text-2xl font-black tracking-tighter text-white flex items-center gap-2 group">
-        <span className="text-orange-500 transition-colors group-hover:text-white">American</span>
-        <span className="transition-colors group-hover:text-orange-500">Dadar Biryani</span>
+        <span className="text-orange-500 transition-colors group-hover:text-white">বাচ্চার</span>
+        <span className="transition-colors group-hover:text-orange-500">বিরিয়ানি</span>
       </a>
 
       <nav className="hidden md:flex items-center gap-8">

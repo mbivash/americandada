@@ -49,9 +49,8 @@ export default function Preloader() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center gap-6"
           >
-            {/* Minimal Brand Identifier */}
-            <div className="text-orange-500 uppercase tracking-[0.5em] text-sm md:text-sm font-bold opacity-80 mix-blend-plus-lighter text-center">
-              American Dadar
+            <div className="text-orange-500 tracking-[0.2em] md:tracking-[0.4em] text-xl font-bold opacity-80 mix-blend-plus-lighter text-center">
+              বাচ্চার বিরিয়ানি
             </div>
             
             {/* The Master Percentage */}

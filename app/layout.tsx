@@ -12,7 +12,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'American Dadar Biryani | Authentic Dum Experience',
+  title: 'বাচ্চার বিরিয়ানি | Authentic Dum Experience',
   description: 'Experience authentic dum biryani crafted with tradition, served at our exclusive locations.',
 };
 

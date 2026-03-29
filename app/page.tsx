@@ -42,7 +42,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.5, ease: "easeOut" }}
           >
-            {/* Removed the 'American Dadar Biryani' title as requested */}
+            {/* Removed the 'বাচ্চার বিরিয়ানি' title as requested */}
             <h1 className="text-6xl md:text-9xl font-black mb-6 uppercase tracking-tighter text-white/70 leading-none drop-shadow-2xl">
               Authentic Dum <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400/80 via-orange-500/80 to-orange-700/80 drop-shadow-md">
@@ -164,7 +164,7 @@ export default function Home() {
       <section className="py-40 px-6 bg-gradient-to-b from-black via-[#0d0a0b] to-black text-center relative z-10 border-y border-white/10">
         <div className="absolute inset-0 bg-[url('/images/image1.png')] bg-cover bg-center opacity-5 mix-blend-screen scale-110" />
         <h2 className="text-5xl md:text-8xl font-black mb-10 uppercase tracking-tighter relative z-10">
-          Taste The <br/> <span className="text-orange-500">Authentic</span> Dadar.
+          Taste The <br/> <span className="text-orange-500">Authentic</span> বাচ্চার বিরিয়ানি.
         </h2>
         <p className="text-2xl md:text-3xl text-white/50 mb-16 max-w-2xl mx-auto font-light relative z-10">
           Elevate your dining with our signature dum biryani. Immerse yourself in the rich aromas right here in Habra.

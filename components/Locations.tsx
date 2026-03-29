@@ -17,7 +17,7 @@ export default function Locations() {
             Our Location
           </h2>
           <p className="text-xl text-white/60 max-w-2xl mx-auto font-light">
-            Visit us in the heart of Habra to experience the authentic taste of American Dadar Biryani.
+            Visit us in the heart of Habra to experience the authentic taste of বাচ্চার বিরিয়ানি.
           </p>
         </div>
 

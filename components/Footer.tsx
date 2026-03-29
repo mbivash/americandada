@@ -9,8 +9,8 @@ export default function Footer() {
         {/* Brand */}
         <div className="col-span-1 md:col-span-2 space-y-6">
           <Link href="/" className="text-3xl font-bold tracking-tight text-white inline-flex items-center gap-2">
-            <span className="text-orange-500">American</span>
-            <span>Dadar</span>
+            <span className="text-orange-500">বাচ্চার</span>
+            <span>বিরিয়ানি</span>
           </Link>
           <p className="text-white/60 max-w-sm text-lg leading-relaxed">
             Crafting authenticity in every grain. A premium Dum Biryani experience designed for those who seek tradition infused with modern luxury.
@@ -49,7 +49,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Mail size={18} className="text-orange-500" />
-              <span>hello@americandadar.com</span>
+              <span>hello@baccharbiryani.com</span>
             </li>
             <li className="flex items-start gap-3 mt-4">
               <MapPin size={18} className="text-orange-500 shrink-0 mt-1" />
@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-white/40 text-sm">
-        <p>&copy; {new Date().getFullYear()} American Dadar Biryani. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} বাচ্চার বিরিয়ানি. All rights reserved.</p>
         <div className="flex gap-6 mt-4 md:mt-0">
           <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
           <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
