@@ -56,7 +56,7 @@ export default function Locations() {
 
             <div className="flex-1 aspect-square md:aspect-auto bg-[#050505] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden relative grayscale group-hover:grayscale-0 transition-all duration-700">
                <iframe 
-                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d919.2394262343616!2d88.6521653567405!3d22.841054254618108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8b10010253d07%3A0xd311e9201d2becad!2sAmerican%20Dadar%20Biriyani%202.0%20(Petuk)!5e0!3m2!1sen!2sin!4v1774544445413!5m2!1sen!2sin" 
+                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14707.820663541048!2d88.63963454961777!3d22.841148186187496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f8b1b7adf06ca7%3A0x9e9cac0e7d61cbac!2sBacchar%20Biriyani!5e0!3m2!1sen!2sin!4v1774777100817!5m2!1sen!2sin" 
                  className="absolute inset-0 w-full h-full border-0"
                  allowFullScreen 
                  loading="lazy" 
