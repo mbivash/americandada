@@ -16,6 +16,7 @@ export function Cinematic3D({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isUsingGyro, setIsUsingGyro] = useState(false);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -36,7 +37,33 @@ export function Cinematic3D({
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${maxRotation}deg`, `${maxRotation}deg`]);
 
   useEffect(() => {
-    if (isHovered) return;
+    const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+      // Gamma is left/right roll, Beta is front/back pitch
+      if (e.gamma === null || e.beta === null) return;
+      
+      setIsUsingGyro(true);
+
+      let gamma = e.gamma;
+      if (gamma < -30) gamma = -30;
+      if (gamma > 30) gamma = 30;
+      
+      let beta = e.beta - 45; // Center around 45deg holding angle
+      if (beta < -30) beta = -30;
+      if (beta > 30) beta = 30;
+
+      x.set(gamma / 60);
+      y.set(beta / 60);
+    };
+
+    // Attach listener for device orientation
+    if (typeof window !== "undefined") {
+      window.addEventListener("deviceorientation", handleDeviceOrientation);
+      return () => window.removeEventListener("deviceorientation", handleDeviceOrientation);
+    }
+  }, [x, y]);
+
+  useEffect(() => {
+    if (isHovered || isUsingGyro) return;
 
     // Cinematic continuous float animation for mobile & idle states
     const controlsX = animate(x, [-0.08, 0.08, -0.08], {
@@ -55,7 +82,7 @@ export function Cinematic3D({
       controlsX.stop();
       controlsY.stop();
     };
-  }, [isHovered, x, y]);
+  }, [isHovered, isUsingGyro, x, y]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -126,7 +153,7 @@ export function Cinematic3D({
            <motion.div 
              className="absolute inset-0 pointer-events-none rounded-[inherit] z-50 mix-blend-overlay transition-opacity duration-500"
              style={{ 
-               opacity: isHovered ? 1 : 0.4,
+               opacity: isHovered || isUsingGyro ? 1 : 0.4,
                background
              }}
            />
