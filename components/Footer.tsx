@@ -32,10 +32,10 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">Quick Links</h4>
           <ul className="space-y-4 text-white/60">
-            <li><Link href="/" className="hover:text-orange-400 transition-colors">Home</Link></li>
-            <li><Link href="#" className="hover:text-orange-400 transition-colors">Our Menu</Link></li>
-            <li><Link href="#" className="hover:text-orange-400 transition-colors">The Story</Link></li>
-            <li><Link href="#locations" className="hover:text-orange-400 transition-colors">Locations</Link></li>
+            <li><Link href="/#home" className="hover:text-orange-400 transition-colors">Home</Link></li>
+            <li><Link href="/menu" className="hover:text-orange-400 transition-colors">Our Menu</Link></li>
+            <li><Link href="/#story" className="hover:text-orange-400 transition-colors">The Story</Link></li>
+            <li><Link href="/#locations" className="hover:text-orange-400 transition-colors">Locations</Link></li>
           </ul>
         </div>
 

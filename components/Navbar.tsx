@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,19 +18,29 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Menu", href: "#menu" },
-    { name: "Our Story", href: "#story" },
-    { name: "Locations", href: "#locations" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/#home" },
+    { name: "Full Menu", href: "/menu" },
+    { name: "Our Story", href: "/#story" },
+    { name: "Locations", href: "/#locations" },
+    { name: "Contact", href: "/#contact" },
   ];
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If we're not on the home page and trying to go to a hash, let normal navigation happen
+    if (href.startsWith("/#")) {
+      const hash = href.replace("/", "");
+      if (window.location.pathname === "/") {
+        e.preventDefault();
+        const element = document.querySelector(hash);
+        if (element) {
+          setMobileMenuOpen(false);
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        setMobileMenuOpen(false);
+      }
+    } else {
       setMobileMenuOpen(false);
-      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -43,21 +54,21 @@ export default function Navbar() {
         }
       `}
     >
-      <a href="#home" onClick={(e) => scrollToSection(e, "#home")} className="text-2xl font-black tracking-tighter text-white flex items-center gap-2 group">
+      <Link href="/" className="text-2xl font-black tracking-tighter text-white flex items-center gap-2 group">
         <span className="text-orange-500 transition-colors group-hover:text-white">বাচ্চার</span>
         <span className="transition-colors group-hover:text-orange-500">বিরিয়ানি</span>
-      </a>
+      </Link>
 
       <nav className="hidden md:flex items-center gap-8">
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.name}
             href={link.href}
-            onClick={(e) => scrollToSection(e, link.href)}
+            onClick={(e) => handleNavClick(e, link.href)}
             className="text-sm font-semibold text-white/70 hover:text-orange-400 transition-colors uppercase tracking-[0.15em]"
           >
             {link.name}
-          </a>
+          </Link>
         ))}
         <button 
           onClick={() => document.querySelector("#locations")?.scrollIntoView({ behavior: "smooth" })}
@@ -85,14 +96,14 @@ export default function Navbar() {
             className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-2xl border-b border-white/10 p-8 flex flex-col gap-8 shadow-2xl md:hidden"
           >
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-xl font-bold text-white/90 hover:text-orange-500 transition-colors uppercase tracking-widest border-b border-white/5 pb-4"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <button 
               onClick={() => {
