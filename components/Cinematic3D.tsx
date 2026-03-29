@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate, animate } from "framer-motion";
 
 export function Cinematic3D({ 
   children, 
@@ -35,6 +35,28 @@ export function Cinematic3D({
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${maxRotation}deg`, `-${maxRotation}deg`]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${maxRotation}deg`, `${maxRotation}deg`]);
 
+  useEffect(() => {
+    if (isHovered) return;
+
+    // Cinematic continuous float animation for mobile & idle states
+    const controlsX = animate(x, [-0.08, 0.08, -0.08], {
+      duration: 6,
+      ease: "easeInOut",
+      repeat: Infinity,
+    });
+    
+    const controlsY = animate(y, [-0.12, 0.12, -0.12], {
+      duration: 8,
+      ease: "easeInOut",
+      repeat: Infinity,
+    });
+
+    return () => {
+      controlsX.stop();
+      controlsY.stop();
+    };
+  }, [isHovered, x, y]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
@@ -61,6 +83,20 @@ export function Cinematic3D({
     y.set(0);
   };
 
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const touch = e.touches[0];
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    
+    const touchX = Math.max(0, Math.min(touch.clientX - rect.left, width));
+    const touchY = Math.max(0, Math.min(touch.clientY - rect.top, height));
+    
+    x.set(touchX / width - 0.5);
+    y.set(touchY / height - 0.5);
+  };
+
   return (
     <motion.div
       ref={ref}
@@ -68,6 +104,9 @@ export function Cinematic3D({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleMouseEnter}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleMouseLeave}
     >
       <motion.div
         style={{
@@ -87,7 +126,7 @@ export function Cinematic3D({
            <motion.div 
              className="absolute inset-0 pointer-events-none rounded-[inherit] z-50 mix-blend-overlay transition-opacity duration-500"
              style={{ 
-               opacity: isHovered ? 1 : 0,
+               opacity: isHovered ? 1 : 0.4,
                background
              }}
            />
