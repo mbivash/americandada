@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Cinematic3D } from "./Cinematic3D";
 
 const ingredients = [
   {
@@ -58,47 +59,50 @@ export default function BentoIngredients() {
           {ingredients.map((item, index) => (
             <motion.div 
               key={item.id}
-              className={`group relative overflow-hidden rounded-[2rem] bg-[#020202] border border-white/10 aspect-square md:aspect-[4/3] flex flex-col justify-end p-8 md:p-12 md:cursor-none`}
+              className="w-full h-full rounded-[2rem]"
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "50px" }}
               transition={{ duration: 1.5, delay: index * 0.2, ease: "easeOut" }}
             >
-              
-              {/* Background High-Res Image (Fully bright on mobile, hidden on desktop until hover) */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-full object-cover opacity-80 md:opacity-0 md:group-hover:opacity-80 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-[1.5s] ease-out scale-100 md:scale-110 md:group-hover:scale-100"
-                />
-              </div>
+              <Cinematic3D className="group w-full h-full rounded-[2rem]" popOut={20} maxRotation={10}>
+                <div className={`relative overflow-hidden rounded-[2rem] bg-[#020202] border border-white/10 aspect-square md:aspect-[4/3] flex flex-col justify-end p-8 md:p-12 md:cursor-none w-full h-full`}>
+                  {/* Background High-Res Image (Fully bright on mobile, hidden on desktop until hover) */}
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[2rem]">
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-full object-cover opacity-80 md:opacity-0 md:group-hover:opacity-80 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-[1.5s] ease-out scale-100 md:scale-110 md:group-hover:scale-100"
+                    />
+                  </div>
 
-              {/* Dramatic Lighting Overlay (Much lighter so mobile images are visible!) */}
-              <div className={`absolute inset-0 bg-gradient-to-t ${item.color} opacity-60 md:opacity-0 md:group-hover:opacity-60 transition-opacity duration-[1.5s] ease-out`} />
-              
-              {/* Dark bottom gradient exclusively for text legibility, transparent top so image shows entirely! */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-100 transition-opacity duration-1000 pointer-events-none" />
+                  {/* Dramatic Lighting Overlay (Much lighter so mobile images are visible!) */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${item.color} opacity-60 md:opacity-0 md:group-hover:opacity-60 transition-opacity duration-[1.5s] ease-out rounded-[2rem]`} />
+                  
+                  {/* Dark bottom gradient exclusively for text legibility, transparent top so image shows entirely! */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-100 transition-opacity duration-1000 pointer-events-none rounded-[2rem]" />
 
-              {/* Text Content */}
-              <div className="relative z-10 transition-transform duration-1000 ease-out translate-y-0 md:translate-y-8 md:group-hover:translate-y-0">
-                <span className="text-orange-500 font-bold text-sm md:text-base uppercase tracking-[0.3em] block mb-3 opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity duration-1000">
-                  {item.subtitle}
-                </span>
-                <h3 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
-                  {item.title}
-                </h3>
-                
-                {/* Description (Always visible on mobile) */}
-                <div className="overflow-hidden">
-                  <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-all duration-1000 ease-out delay-100">
-                    {item.description}
-                  </p>
+                  {/* Text Content */}
+                  <div className="relative z-10 transition-transform duration-1000 ease-out translate-y-0 md:translate-y-8 md:group-hover:translate-y-0">
+                    <span className="text-orange-500 font-bold text-sm md:text-base uppercase tracking-[0.3em] block mb-3 opacity-100 md:opacity-60 md:group-hover:opacity-100 transition-opacity duration-1000">
+                      {item.subtitle}
+                    </span>
+                    <h3 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
+                      {item.title}
+                    </h3>
+                    
+                    {/* Description (Always visible on mobile) */}
+                    <div className="overflow-hidden">
+                      <p className="text-white/90 text-lg md:text-xl font-light leading-relaxed max-w-lg opacity-100 md:opacity-0 md:group-hover:opacity-100 translate-y-0 md:translate-y-full md:group-hover:translate-y-0 transition-all duration-1000 ease-out delay-100">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Hover Frame Glow */}
+                  <div className="absolute inset-0 border-[2px] border-orange-500/0 md:group-hover:border-orange-500/40 rounded-[2rem] transition-colors duration-1000 pointer-events-none" />
                 </div>
-              </div>
-
-              {/* Hover Frame Glow */}
-              <div className="absolute inset-0 border-[2px] border-orange-500/0 md:group-hover:border-orange-500/40 rounded-[2rem] transition-colors duration-1000 pointer-events-none" />
+              </Cinematic3D>
             </motion.div>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BiryaniDish } from "@/data/biryani";
+import { Cinematic3D } from "./Cinematic3D";
 
 function StorySection({ 
   content, 
@@ -108,8 +109,9 @@ function StorySection({
             style={{ opacity, scale: visualScale, rotate: visualRotate, x: visualX, y: visualY }}
             className="flex-1 relative z-10 flex justify-center items-center will-change-[opacity,transform]"
           >
-            {/* 1. Plated Transparent Layout */}
-            {isTransparentImage && !hasSlideGlow && (
+            <Cinematic3D className="w-full flex justify-center max-w-xl mx-auto" popOut={30} maxRotation={15}>
+              {/* 1. Plated Transparent Layout */}
+              {isTransparentImage && !hasSlideGlow && (
               <motion.div 
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -183,6 +185,7 @@ function StorySection({
                 />
               </div>
             )}
+            </Cinematic3D>
           </motion.div>
         )}
 
